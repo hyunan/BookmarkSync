@@ -46,7 +46,6 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (testUser.isPresent() && encoder.matches(user.getPassword(), testUser.get().getPasswordHash())) {
             session.setAttribute("user_id", testUser.get().getId());
-            System.out.println("SESSION USER ID: " + session.getAttribute("user_id"));
             return ResponseEntity.ok(Map.of("username", testUser.get().getUsername()));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Username or password is incorrect"));

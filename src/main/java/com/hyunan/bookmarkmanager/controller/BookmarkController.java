@@ -23,6 +23,7 @@ import com.hyunan.bookmarkmanager.repository.BookmarkRepository;
 import com.hyunan.bookmarkmanager.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/bookmarks")
@@ -35,7 +36,7 @@ public class BookmarkController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping
+    @GetMapping("/view")
     public List<Bookmark> getAllBookmarks(HttpSession session) {
         Long userId = (Long) session.getAttribute("user_id");
         if (userId == null) return Collections.emptyList();
@@ -49,17 +50,17 @@ public class BookmarkController {
         return bookmarkRepository.findByUser_IdAndTitleContainingIgnoreCase(userId, query);
     }
 
+    @Transactional
     @PostMapping("/upload")
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file, HttpSession session) {
-        System.out.println("UPLOAD WAS RUN");
         Long userId = (Long) session.getAttribute("user_id");
-        System.out.println("UserID is: " + userId);
         if (userId == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User not authorized"));
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         try {
             Document doc = Jsoup.parse(file.getInputStream(), "UTF-8", "");
             Elements links = doc.select("DT > A");
+            bookmarkRepository.deleteByUser_Id(userId);
             for (var link : links) {
                 String href = link.attr("HREF");
                 String title = link.text();

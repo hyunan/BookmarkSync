@@ -35,6 +35,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
             console.log("Login successful: ", data);
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('homeSection').style.display = 'block';
+            displayBookmarks();
         } else {
             const data = await response.json();
             console.error("Login failed: ", data);
