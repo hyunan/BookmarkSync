@@ -44,10 +44,6 @@ public class Bookmark {
         return user;
     }
 
-    public Long getUserId() {
-        return user.getId();
-    }
-
     public String getTitle() {
         return title;
     }

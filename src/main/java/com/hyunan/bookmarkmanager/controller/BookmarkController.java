@@ -26,13 +26,13 @@ public class BookmarkController {
     public List<Bookmark> getAllBookmarks(HttpSession session) {
         Long userId = (Long) session.getAttribute("user_id");
         if (userId == null) return Collections.emptyList();
-        return bookmarkRepository.findByUserId(userId);
+        return bookmarkRepository.findByUser_Id(userId);
     }
 
     @GetMapping("/search")
     public List<Bookmark> searchBookmarks(@RequestParam(required = true) String query, HttpSession session) {
         Long userId = (Long) session.getAttribute("user_id");
         if (userId == null) return Collections.emptyList();
-        return bookmarkRepository.findByUserIdAndTitleContainingIgnoreCase(userId, query);
+        return bookmarkRepository.findByUser_IdAndTitleContainingIgnoreCase(userId, query);
     }
 }
