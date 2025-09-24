@@ -1,3 +1,5 @@
+const SERVER_URL = "http://localhost:8080";
+
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const username = document.getElementById("uname").value;
@@ -5,11 +7,12 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const clickedButton = document.activeElement.id;
     if (clickedButton === "create") {
         console.log("CREATED USER");
-        const response = await fetch("http://localhost:8080/users/register", {
+        const response = await fetch(`${SERVER_URL}/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
+            credentials: "include",
             body: JSON.stringify({ username, password })
         });
         if (response.ok) {
@@ -21,16 +24,18 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
         }
     } else if (clickedButton === "login") {
         console.log("LOGIN USER");
-        const response = await fetch("http://localhost:8080/users/login", {
+        const response = await fetch(`${SERVER_URL}/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
+            credentials: "include",
             body: JSON.stringify({ username, password })
         });
         if (response.ok) {
             const data = await response.json();
             console.log("Login successful: ", data);
+            window.location.replace("./home.html");
         } else {
             const data = await response.json();
             console.error("Login failed: ", data);

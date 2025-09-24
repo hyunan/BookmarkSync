@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bookmarks</title>
+</head>
+<body class="flex flex-col h-screen p-4">
+    <div class="flex items-center gap-4 mb-2">
+        <label class="bg-blue-900 text-white px-4 py-2 rounded cursor-pointer">
+            Select File
+            <input type="file" id="uploadFile" class="hidden"/>
+        </label>
+        <button id="downloadBtn" class="bg-green-500 text-white px-4 py-2 rounded">Download</button>
+    </div>
+    <div class="mb-2">
+        <input type="text" id="search" placeholder="Search bookmarks" class="border p-2 w-full" />
+    </div>
+    <div id="bookmark-view" class="flex-1 overflow-y-auto border p-2"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="./upload.js"></script>
+</body>
+</html>

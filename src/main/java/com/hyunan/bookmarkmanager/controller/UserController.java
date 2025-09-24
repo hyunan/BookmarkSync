@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import com.hyunan.bookmarkmanager.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
 
-@CrossOrigin(origins = "*") // TODO: change cors origins
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -43,10 +41,12 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody(required = true) UserDTO user, HttpSession session) {
+        System.out.println("LOGIN WAS USED");
         var testUser = userRepository.findByUsername(user.getUsername());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (testUser.isPresent() && encoder.matches(user.getPassword(), testUser.get().getPasswordHash())) {
             session.setAttribute("user_id", testUser.get().getId());
+            System.out.println("SESSION USER ID: " + session.getAttribute("user_id"));
             return ResponseEntity.ok(Map.of("username", testUser.get().getUsername()));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Username or password is incorrect"));
