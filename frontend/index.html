@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="./script.js"></script>
 </head>
 <body>
-    <form id="loginForm">
+    <form id="loginForm" method="post">
         <div class="flex flex-col justify-center items-center h-screen space-y-4">
             <div class="flex flex-col space-y-2">
                 <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input type="text" placeholder="Enter Username" id="uname" required>
 
                 <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input type="password" placeholder="Enter Password" id="psw" required>
             </div>
             <div class="flex flex-col space-y-2">
-                <button class="bg-blue-200" type="submit" onclick="">Login</button>
-                <button class="bg-blue-500" type="submit">Create Account</button>
+                <button class="bg-blue-200" type="submit" id="login">Login</button>
+                <button class="bg-blue-500" type="submit" id="create">Create Account</button>
             </div>
         </div>
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

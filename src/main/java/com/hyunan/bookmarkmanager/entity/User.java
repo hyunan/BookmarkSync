@@ -21,7 +21,7 @@ public class User {
     @Column(name = "password_hash")
     private String passwordHash;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
     protected User() {}
