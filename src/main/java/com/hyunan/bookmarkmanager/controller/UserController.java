@@ -41,7 +41,6 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody(required = true) UserDTO user, HttpSession session) {
-        System.out.println("LOGIN WAS USED");
         var testUser = userRepository.findByUsername(user.getUsername());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (testUser.isPresent() && encoder.matches(user.getPassword(), testUser.get().getPasswordHash())) {

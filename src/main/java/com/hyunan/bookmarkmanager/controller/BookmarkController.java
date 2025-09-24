@@ -9,6 +9,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +49,28 @@ public class BookmarkController {
         Long userId = (Long) session.getAttribute("user_id");
         if (userId == null) return Collections.emptyList();
         return bookmarkRepository.findByUser_IdAndTitleContainingIgnoreCase(userId, query);
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity<?> download(HttpSession session) {
+        Long userId = (Long) session.getAttribute("user_id");
+        if (userId == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User not authorized"));
+        List<Bookmark> bookmarks = bookmarkRepository.findByUser_Id(userId);
+        
+        StringBuilder html = new StringBuilder();
+        html.append("<!DOCTYPE NETSCAPE-Bookmark-file-1>\n");
+        html.append("<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=UTF-8\">\n");
+        html.append("<TITLE>Bookmarks</TITLE>\n");
+        html.append("<H1>Bookmarks</H1>\n");
+        html.append("<DL><p>\n");
+        for (Bookmark b : bookmarks) {
+            html.append("\t<DT><A HREF=").append("\"").append(b.getUrl()).append("\"").append(">").append(b.getTitle()).append("</A>\n");
+        }
+        html.append("</DL><p>\n");
+        return ResponseEntity.ok()
+            .contentType(MediaType.TEXT_HTML)
+            .body(html.toString());
     }
 
     @Transactional

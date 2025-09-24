@@ -26,4 +26,5 @@ uploadFile.addEventListener("change", async (e) => {
         console.error("Failed: ", data);
     }
     console.log(`${file.name} was successfully uploaded`);
+    displayBookmarks();
 });
