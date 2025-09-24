@@ -1,5 +1,3 @@
-const SERVER_URL = "http://localhost:8080";
-
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const username = document.getElementById("uname").value;
@@ -35,7 +33,8 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
         if (response.ok) {
             const data = await response.json();
             console.log("Login successful: ", data);
-            window.location.replace("./home.html");
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('homeSection').style.display = 'block';
         } else {
             const data = await response.json();
             console.error("Login failed: ", data);

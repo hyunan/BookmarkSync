@@ -54,6 +54,8 @@ public class BookmarkController {
         System.out.println("UPLOAD WAS RUN");
         Long userId = (Long) session.getAttribute("user_id");
         System.out.println("UserID is: " + userId);
+        if (userId == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User not authorized"));
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         try {
             Document doc = Jsoup.parse(file.getInputStream(), "UTF-8", "");

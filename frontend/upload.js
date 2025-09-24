@@ -1,5 +1,3 @@
-const SERVER_URL = "http://localhost:8080";
-
 const uploadFile = document.getElementById("uploadFile");
 uploadFile.addEventListener("change", async (e) => {
     e.preventDefault();

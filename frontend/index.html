@@ -6,22 +6,41 @@
     <title>Bookmark Sync</title>
 </head>
 <body>
-    <form id="loginForm" method="post">
-        <div class="flex flex-col justify-center items-center h-screen space-y-4">
-            <div class="flex flex-col space-y-2">
-                <label for="uname"><b>Username</b></label>
-                <input class="border" type="text" placeholder="Enter Username" id="uname" required>
+    <!--Login section-->
+    <div id="loginSection">
+        <form id="loginForm" method="post">
+            <div class="flex flex-col justify-center items-center h-screen space-y-4">
+                <div class="flex flex-col space-y-2">
+                    <label for="uname"><b>Username</b></label>
+                    <input class="border" type="text" placeholder="Enter Username" id="uname" required>
 
-                <label for="psw"><b>Password</b></label>
-                <input class="border" type="password" placeholder="Enter Password" id="psw" required>
+                    <label for="psw"><b>Password</b></label>
+                    <input class="border" type="password" placeholder="Enter Password" id="psw" required>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <button class="bg-blue-200" type="submit" id="login">Login</button>
+                    <button class="bg-blue-500" type="submit" id="create">Create Account</button>
+                </div>
             </div>
-            <div class="flex flex-col space-y-2">
-                <button class="bg-blue-200" type="submit" id="login">Login</button>
-                <button class="bg-blue-500" type="submit" id="create">Create Account</button>
-            </div>
+        </form>
+    </div>
+    
+    <!--Bookmarks section-->
+    <div id="homeSection" style="display: none;" class="flex flex-col h-screen p-4">
+        <div class="flex items-center gap-4 mb-2">
+            <label class="bg-blue-900 text-white px-4 py-2 rounded cursor-pointer">
+                Select File
+                <input type="file" id="uploadFile" class="hidden"/>
+            </label>
+            <button id="downloadBtn" class="bg-green-500 text-white px-4 py-2 rounded">Download</button>
         </div>
-    </form>
+        <div class="mb-2">
+            <input type="text" id="search" placeholder="Search bookmarks" class="border p-2 w-full" />
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="./config.js"></script>
+    <script src="./upload.js"></script>
     <script src="./login.js"></script>
 </body>
 </html>
